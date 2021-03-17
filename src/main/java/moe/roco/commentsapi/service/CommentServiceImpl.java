@@ -1,4 +1,4 @@
-package moe.roco.commentsapi.service.endpoint;
+package moe.roco.commentsapi.service;
 
 import java.util.List;
 
@@ -14,9 +14,10 @@ import moe.roco.commentsapi.vo.CommentVo;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class EndpointComment {
+public class CommentServiceImpl implements CommentService {
 	private final CommentDao commentDao;
 
+	@Override
 	public ApiStatusWithCount<List<Comment>> getCommentList(String consumerID, String sequenceID, long skip, int limit) {
 		ApiStatusWithCount<List<Comment>> apiStatusWithCount = new ApiStatusWithCount<>();
 		apiStatusWithCount.setCount(commentDao.accessCommentCount(consumerID, sequenceID));
@@ -26,6 +27,7 @@ public class EndpointComment {
 		return apiStatusWithCount;
 	}
 
+	@Override
 	public ApiStatusWithCount<List<Comment>> postComment(String consumerID, String sequenceID, CommentVo commentVo, long skip, int limit) {
 		ApiStatusWithCount<List<Comment>> apiStatusWithCount = new ApiStatusWithCount<>();
 		commentDao.addComment(consumerID, sequenceID, commentVo);
@@ -34,4 +36,3 @@ public class EndpointComment {
 		return apiStatusWithCount;
 	}
 }
-

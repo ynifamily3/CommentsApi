@@ -1,4 +1,4 @@
-package moe.roco.commentsapi.controller.endpoint;
+package moe.roco.commentsapi.controller;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import moe.roco.commentsapi.entity.ApiStatus.ApiStatusWithCount;
 import moe.roco.commentsapi.entity.Comment.Comment;
-import moe.roco.commentsapi.service.endpoint.EndpointComment;
+import moe.roco.commentsapi.service.CommentService;
 import moe.roco.commentsapi.vo.CommentVo;
 
 @Slf4j
@@ -25,7 +25,7 @@ import moe.roco.commentsapi.vo.CommentVo;
 @RequiredArgsConstructor
 public class CommentCtrl {
 
-	private final EndpointComment endpointComment;
+	private final CommentService commentService;
 
 	@ResponseBody
 	@ApiOperation(value = "댓글 리스트 보기 (consumer + sequence)")
@@ -35,7 +35,7 @@ public class CommentCtrl {
 														 @RequestParam(value = "skip", required = false, defaultValue = "0") long skip,
 														 @RequestParam(value = "limit", required = false, defaultValue = "50") int limit
 	) {
-		return endpointComment.getCommentList(consumerID, sequenceID, skip, limit);
+		return commentService.getCommentList(consumerID, sequenceID, skip, limit);
 	}
 
 	@ResponseBody
@@ -47,7 +47,7 @@ public class CommentCtrl {
 														  @RequestParam(value = "skip", required = false, defaultValue = "0") long skip,
 														  @RequestParam(value = "limit", required = false, defaultValue = "50") int limit
 	) {
-		return endpointComment.postComment(consumerID, sequenceID, commentVo, skip, limit);
+		return commentService.postComment(consumerID, sequenceID, commentVo, skip, limit);
 	}
 
 }

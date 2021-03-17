@@ -2,6 +2,7 @@ package moe.roco.commentsapi.entity.ApiStatus;
 
 import lombok.Getter;
 import lombok.Setter;
+import moe.roco.commentsapi.enums.STATUS;
 
 @Getter
 @Setter
