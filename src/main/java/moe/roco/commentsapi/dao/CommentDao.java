@@ -17,25 +17,25 @@ import moe.roco.commentsapi.vo.CommentVo;
 @Repository
 @RequiredArgsConstructor
 public class CommentDao {
-	private final MongoOperations mongoOperations;
+    private final MongoOperations mongoOperations;
 
-	public long accessCommentCount(String consumerID, String sequenceID) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("consumerID").is(consumerID));
-		query.addCriteria(Criteria.where("sequenceID").is(sequenceID));
-		return mongoOperations.count(query, Comment.class);
-	}
+    public long accessCommentCount(String consumerID, String sequenceID) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("consumerID").is(consumerID));
+        query.addCriteria(Criteria.where("sequenceID").is(sequenceID));
+        return mongoOperations.count(query, Comment.class);
+    }
 
-	public List<Comment> accessComment(String consumerID, String sequenceID, long skip, int limit) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("consumerID").is(consumerID));
-		query.addCriteria(Criteria.where("sequenceID").is(sequenceID));
-		query.with(Sort.by(Sort.Direction.DESC, "date"));
-		return mongoOperations.find(query.skip(skip).limit(limit), Comment.class);
-	}
+    public List<Comment> accessComment(String consumerID, String sequenceID, long skip, int limit) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("consumerID").is(consumerID));
+        query.addCriteria(Criteria.where("sequenceID").is(sequenceID));
+        query.with(Sort.by(Sort.Direction.DESC, "date"));
+        return mongoOperations.find(query.skip(skip).limit(limit), Comment.class);
+    }
 
-	public void addComment(String consumerID, String sequenceID, CommentVo commentVo) {
-		Comment commentEntity = commentVo.toEntity(consumerID, sequenceID);
-		mongoOperations.insert(commentEntity);
-	}
+    public void addComment(String consumerID, String sequenceID, CommentVo commentVo) {
+        Comment commentEntity = commentVo.toEntity(consumerID, sequenceID);
+        mongoOperations.insert(commentEntity);
+    }
 }

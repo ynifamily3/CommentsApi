@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ApiStatusWithCount<T> extends ApiStatus<T> {
-	long count;
+    long count;
 }

@@ -13,25 +13,25 @@ import moe.roco.commentsapi.entity.Comment.Writer;
 @Setter
 @Builder
 public class CommentVo {
-	Date date;
-	Writer writer;
-	Content content;
+    Date date;
+    Writer writer;
+    Content content;
 
-	@Override
-	public String toString() {
-		return date.toString() + " / " + writer.getNickname() + "(" + writer.getId() + "): " + content.getTextData() + " [" + content.getImageData() + "]";
-	}
+    @Override
+    public String toString() {
+        return date.toString() + " / " + writer.getNickname() + "(" + writer.getId() + "): " + content.getTextData() + " [" + content.getImageData() + "]";
+    }
 
-	public Comment toEntity(String consumerID, String sequenceID) {
-		return Comment.builder()
-				.recommend(0)
-				.notRecommend(0)
-				.cntReply(0)
-				.consumerID(consumerID)
-				.sequenceID(sequenceID)
-				.date(date)
-				.writer(writer)
-				.content(content)
-				.build();
-	}
+    public Comment toEntity(String consumerID, String sequenceID) {
+        return Comment.builder()
+                .recommend(0)
+                .notRecommend(0)
+                .cntReply(0)
+                .consumerID(consumerID)
+                .sequenceID(sequenceID)
+                .date(date)
+                .writer(writer)
+                .content(content)
+                .build();
+    }
 }

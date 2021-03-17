@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Writer {
-	String id;
-	String nickname;
-	String profilePhoto;
+    String id;
+    String nickname;
+    String profilePhoto;
 }

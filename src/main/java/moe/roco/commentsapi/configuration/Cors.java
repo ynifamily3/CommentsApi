@@ -10,16 +10,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Configuration
 public class Cors implements WebMvcConfigurer {
-	@Value("${ALLOW_ORIGIN}")
-	private String[] allowedOrigins;
+    @Value("${ALLOW_ORIGIN}")
+    private String[] allowedOrigins;
 
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		log.info("CORS 설정 중...");
-		registry.addMapping("/**")
-				.allowedOrigins(allowedOrigins)
-				.allowedMethods("GET")
-				.allowedMethods("POST")
-				.maxAge(3000);
-	}
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        log.info("CORS 설정 중...");
+        registry.addMapping("/**")
+                .allowedOrigins(allowedOrigins)
+                .allowedMethods("GET")
+                .allowedMethods("POST")
+                .maxAge(3000);
+    }
 }

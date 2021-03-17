@@ -13,22 +13,22 @@ import moe.roco.commentsapi.vo.CommentVo;
 @Setter
 @Builder
 public class Comment {
-	@Id
-	String id;
-	String consumerID;
-	String sequenceID;
-	Date date;
-	Writer writer;
-	Content content;
-	long recommend;
-	long notRecommend;
-	long cntReply; // 답글 수
+    @Id
+    String id;
+    String consumerID;
+    String sequenceID;
+    Date date;
+    Writer writer;
+    Content content;
+    long recommend;
+    long notRecommend;
+    long cntReply; // 답글 수
 
-	public CommentVo toVo() {
-		return CommentVo.builder()
-				.date(date)
-				.writer(writer)
-				.content(content)
-				.build();
-	}
+    public CommentVo toVo() {
+        return CommentVo.builder()
+                .date(date)
+                .writer(writer)
+                .content(content)
+                .build();
+    }
 }

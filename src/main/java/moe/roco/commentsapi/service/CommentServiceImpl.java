@@ -15,24 +15,24 @@ import moe.roco.commentsapi.vo.CommentVo;
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
-	private final CommentDao commentDao;
+    private final CommentDao commentDao;
 
-	@Override
-	public ApiStatusWithCount<List<Comment>> getCommentList(String consumerID, String sequenceID, long skip, int limit) {
-		ApiStatusWithCount<List<Comment>> apiStatusWithCount = new ApiStatusWithCount<>();
-		apiStatusWithCount.setCount(commentDao.accessCommentCount(consumerID, sequenceID));
-		var re = commentDao.accessComment(consumerID, sequenceID, skip, limit);
-		log.info(re.toString());
-		apiStatusWithCount.setResult(re);
-		return apiStatusWithCount;
-	}
+    @Override
+    public ApiStatusWithCount<List<Comment>> getCommentList(String consumerID, String sequenceID, long skip, int limit) {
+        ApiStatusWithCount<List<Comment>> apiStatusWithCount = new ApiStatusWithCount<>();
+        apiStatusWithCount.setCount(commentDao.accessCommentCount(consumerID, sequenceID));
+        var re = commentDao.accessComment(consumerID, sequenceID, skip, limit);
+        log.info(re.toString());
+        apiStatusWithCount.setResult(re);
+        return apiStatusWithCount;
+    }
 
-	@Override
-	public ApiStatusWithCount<List<Comment>> postComment(String consumerID, String sequenceID, CommentVo commentVo, long skip, int limit) {
-		ApiStatusWithCount<List<Comment>> apiStatusWithCount = new ApiStatusWithCount<>();
-		commentDao.addComment(consumerID, sequenceID, commentVo);
-		apiStatusWithCount.setCount(commentDao.accessCommentCount(consumerID, sequenceID));
-		apiStatusWithCount.setResult(commentDao.accessComment(consumerID, sequenceID, skip, limit));
-		return apiStatusWithCount;
-	}
+    @Override
+    public ApiStatusWithCount<List<Comment>> postComment(String consumerID, String sequenceID, CommentVo commentVo, long skip, int limit) {
+        ApiStatusWithCount<List<Comment>> apiStatusWithCount = new ApiStatusWithCount<>();
+        commentDao.addComment(consumerID, sequenceID, commentVo);
+        apiStatusWithCount.setCount(commentDao.accessCommentCount(consumerID, sequenceID));
+        apiStatusWithCount.setResult(commentDao.accessComment(consumerID, sequenceID, skip, limit));
+        return apiStatusWithCount;
+    }
 }
