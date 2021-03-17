@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "ALLOW_ORIGIN",
+      "type": "java.lang.String",
+      "description": "CORS 허용 도메인"
+    }
+  ]
+}
