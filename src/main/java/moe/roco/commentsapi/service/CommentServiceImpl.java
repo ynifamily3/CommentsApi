@@ -22,7 +22,6 @@ public class CommentServiceImpl implements CommentService {
         ApiStatusWithCount<List<Comment>> apiStatusWithCount = new ApiStatusWithCount<>();
         apiStatusWithCount.setCount(commentDao.accessCommentCount(consumerID, sequenceID));
         var re = commentDao.accessComment(consumerID, sequenceID, skip, limit);
-        log.info(re.toString());
         apiStatusWithCount.setResult(re);
         return apiStatusWithCount;
     }
