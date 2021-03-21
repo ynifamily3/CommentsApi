@@ -4,6 +4,11 @@
       "name": "ALLOW_ORIGIN",
       "type": "java.lang.String",
       "description": "CORS 허용 도메인"
+    },
+    {
+      "name": "cloud.aws.credentials.accessKey",
+      "type": "java.lang.String",
+      "description": "Description for cloud.aws.credentials.accessKey."
     }
   ]
 }
