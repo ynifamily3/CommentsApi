@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import moe.roco.commentsapi.dao.CommentDao;
 import moe.roco.commentsapi.entity.ApiStatus.ApiStatusWithCount;
 import moe.roco.commentsapi.entity.Comment.Comment;
+import moe.roco.commentsapi.enums.STATUS;
 import moe.roco.commentsapi.vo.CommentVo;
 
 @Slf4j
@@ -22,6 +23,7 @@ public class CommentServiceImpl implements CommentService {
         ApiStatusWithCount<List<Comment>> apiStatusWithCount = new ApiStatusWithCount<>();
         apiStatusWithCount.setCount(commentDao.accessCommentCount(consumerID, sequenceID));
         var re = commentDao.accessComment(consumerID, sequenceID, skip, limit);
+        apiStatusWithCount.setStatus(STATUS.SUCCESS);
         apiStatusWithCount.setResult(re);
         return apiStatusWithCount;
     }
@@ -31,6 +33,7 @@ public class CommentServiceImpl implements CommentService {
         ApiStatusWithCount<List<Comment>> apiStatusWithCount = new ApiStatusWithCount<>();
         commentDao.addComment(consumerID, sequenceID, commentVo);
         apiStatusWithCount.setCount(commentDao.accessCommentCount(consumerID, sequenceID));
+        apiStatusWithCount.setStatus(STATUS.SUCCESS);
         apiStatusWithCount.setResult(commentDao.accessComment(consumerID, sequenceID, skip, limit));
         return apiStatusWithCount;
     }
