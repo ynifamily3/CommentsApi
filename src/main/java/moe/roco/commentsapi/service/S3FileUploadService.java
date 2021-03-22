@@ -37,7 +37,7 @@ public class S3FileUploadService {
         int index = origName != null ? origName.lastIndexOf('.') : -1;
         final String ext = index != -1 ? origName.substring(origName.lastIndexOf('.')) : "";
         final String saveFileName = UUID.randomUUID().toString().replaceAll("-", "") + ext;
-        File file = new File(System.getProperty("user.dir") + saveFileName);
+        File file = new File(System.getProperty("user.dir") + "/" + saveFileName);
         log.info(saveFileName);
         log.info("**" + defaultUrl);
         uploadFile.transferTo(file); // 로컬에 저장.
