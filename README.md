@@ -11,7 +11,8 @@ CommentsFront API 서버입니다.
   - 메모리 부족으로 프로그램이 자주 killed된다.
   - 서버 이주 시 `java`환경을 셋팅해 주어야 한다.
 - `Docker`로 이주
-  - 서버 설정이 급격하게 편해짐
+  - 서버 설정이 급격하게 편해짐 (프로세스가 `killed`되어도 재실행하는 등..)
+  - `Blue-Green`배포 같은 방식 사용 가능
 
 ## Authentication
 - 소셜 로그인만으로 진행, 단 인증 서버는 현재 `Java Spring` 통합으로 구성되어 있음. (API서버와 공존)
