@@ -53,7 +53,9 @@ public class CommentCtrl {
                                                           @RequestParam(value = "authType", required = false) String authType,
                                                           @RequestHeader(value = "Authorization", required = false) String authorization
     ) {
-        if (checkAuth.isLogin(authType, authorization)) {
+        if (authType.equals("naver") && checkAuth.isLogin(authType, authorization)) {
+            return commentService.postComment(consumerID, sequenceID, commentVo, skip, limit);
+        } else if (checkAuth.isLogin(authType, authorization, commentVo.getWriter().getId().split(authType + "-")[1])) {
             return commentService.postComment(consumerID, sequenceID, commentVo, skip, limit);
         } else {
             var result = new ApiStatusWithCount<List<Comment>>();
