@@ -65,4 +65,12 @@ public class CommentCtrl {
         }
     }
 
+    @ResponseBody
+    @ApiOperation(value = "댓글 등록하기 (인증 필요)")
+    @GetMapping(value = "/test")
+    public String test() {
+        log.info("접근 탐지됨");
+        return "success";
+    }
+
 }
