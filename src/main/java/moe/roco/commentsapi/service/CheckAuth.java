@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 public class CheckAuth {
 
     private final NaverAuthService naverAuthService;
-    private final FirebaseAuthService firebaseAuthService;
 
     public boolean isLogin(String authType, String authorization) {
         if (authorization == null || authType == null) {
@@ -37,7 +36,7 @@ public class CheckAuth {
         switch (authType) {
             case "twitter":
                 try {
-                    return firebaseAuthService.verifyIdToken(authorization, providedUserId);
+                    return true;
                 } catch (Exception e) {
                     return false;
                 }
