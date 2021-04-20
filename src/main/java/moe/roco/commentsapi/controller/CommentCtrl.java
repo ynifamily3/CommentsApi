@@ -3,7 +3,6 @@ package moe.roco.commentsapi.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,12 +51,11 @@ public class CommentCtrl {
                                                           @RequestParam(value = "skip", required = false, defaultValue = "0") long skip,
                                                           @RequestParam(value = "limit", required = false, defaultValue = "50") int limit,
                                                           @RequestParam(value = "authType", required = false) String authType,
-                                                          @RequestHeader(value = "Authorization", required = false) String authorization,
-                                                          @CookieValue("Authorization") String cookieAuthorization
+                                                          @RequestHeader(value = "Authorization", required = false) String authorization
     ) {
         if (authType.equals("naver") && checkAuth.isLogin(authType, authorization)) {
             return commentService.postComment(consumerID, sequenceID, commentVo, skip, limit);
-        } else if (checkAuth.isLogin(authType, cookieAuthorization, commentVo.getWriter().getId().split(authType + "-")[1])) {
+        } else if (checkAuth.isLogin(authType, authorization, commentVo.getWriter().getId().split(authType + "-")[1])) {
             return commentService.postComment(consumerID, sequenceID, commentVo, skip, limit);
         } else {
             var result = new ApiStatusWithCount<List<Comment>>();
