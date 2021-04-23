@@ -3,6 +3,7 @@ package moe.roco.commentsapi.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import moe.roco.commentsapi.entity.ApiStatus.ApiStatus;
 import moe.roco.commentsapi.entity.ApiStatus.ApiStatusWithCount;
 import moe.roco.commentsapi.entity.Comment.Comment;
 import moe.roco.commentsapi.enums.STATUS;
@@ -66,11 +68,15 @@ public class CommentCtrl {
     }
 
     @ResponseBody
-    @ApiOperation(value = "댓글 등록하기 (인증 필요)")
-    @GetMapping(value = "/test")
-    public String test() {
-        log.info("접근 탐지됨");
-        return "success";
+    @ApiOperation(value = "댓글 삭제하기 (인증 필요)")
+    @DeleteMapping(value = "/{id}")
+    public ApiStatus<String> deleteComment(@PathVariable(value = "id") String id,
+                                           @RequestParam(value = "authType", required = false) String authType,
+                                           @RequestHeader(value = "Authorization", required = false) String authorization
+    ) {
+        // TODO: 권한 체크 로직을 일원화할 필요가 있다.
+        // TODO: authType enum화
+        boolean result = commentService.deleteComment(id, authType, authorization);
+        return result ? new ApiStatus<>(id) : new ApiStatus<>();
     }
-
 }

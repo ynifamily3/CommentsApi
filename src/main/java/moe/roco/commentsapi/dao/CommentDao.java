@@ -38,4 +38,8 @@ public class CommentDao {
         Comment commentEntity = commentVo.toEntity(consumerID, sequenceID);
         mongoOperations.insert(commentEntity);
     }
+
+    public void deleteComment(String id) {
+        
+    }
 }

@@ -37,4 +37,11 @@ public class CommentServiceImpl implements CommentService {
         apiStatusWithCount.setResult(commentDao.accessComment(consumerID, sequenceID, skip, limit));
         return apiStatusWithCount;
     }
+
+    @Override
+    public boolean deleteComment(String id, String authType, String authorization) {
+        // TODO: 권한 체크 로직
+        commentDao.deleteComment(id);
+        return true;
+    }
 }
