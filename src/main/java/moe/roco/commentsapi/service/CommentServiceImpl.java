@@ -39,9 +39,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean deleteComment(String id, String authType, String authorization) {
-        // TODO: 권한 체크 로직
-        commentDao.deleteComment(id);
-        return true;
+    public boolean deleteComment(String consumerID, String sequenceID, String commentID, String authType, String userID) {
+        try {
+            commentDao.deleteComment(consumerID, sequenceID, commentID, authType, userID);
+            return true;
+        } catch (Exception e) {
+            log.error("삭제 실패.." + commentID);
+            log.error(e.getMessage());
+            return false;
+        }
     }
 }

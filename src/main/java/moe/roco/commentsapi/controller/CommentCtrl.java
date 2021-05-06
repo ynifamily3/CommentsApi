@@ -55,9 +55,7 @@ public class CommentCtrl {
                                                           @RequestParam(value = "authType", required = false) String authType,
                                                           @RequestHeader(value = "Authorization", required = false) String authorization
     ) {
-        if (authType.equals("naver") && checkAuth.isLogin(authType, authorization)) {
-            return commentService.postComment(consumerID, sequenceID, commentVo, skip, limit);
-        } else if (checkAuth.isLogin(authType, authorization, commentVo.getWriter().getId().split(authType + "-")[1])) {
+        if (checkAuth.isLogin(authType, authorization, commentVo.getWriter().getId().split(authType + "-")[1])) {
             return commentService.postComment(consumerID, sequenceID, commentVo, skip, limit);
         } else {
             var result = new ApiStatusWithCount<List<Comment>>();
@@ -69,14 +67,22 @@ public class CommentCtrl {
 
     @ResponseBody
     @ApiOperation(value = "댓글 삭제하기 (인증 필요)")
-    @DeleteMapping(value = "/{id}")
-    public ApiStatus<String> deleteComment(@PathVariable(value = "id") String id,
+    @DeleteMapping(value = "/{consumerID}/{sequenceID}/{id}")
+    public ApiStatus<String> deleteComment(@PathVariable(value = "consumerID") String consumerID,
+                                           @PathVariable(value = "sequenceID") String sequenceID,
+                                           @PathVariable(value = "id") String id,
                                            @RequestParam(value = "authType", required = false) String authType,
                                            @RequestHeader(value = "Authorization", required = false) String authorization
     ) {
-        // TODO: 권한 체크 로직을 일원화할 필요가 있다.
-        // TODO: authType enum화
-        boolean result = commentService.deleteComment(id, authType, authorization);
-        return result ? new ApiStatus<>(id) : new ApiStatus<>();
+        String userID = checkAuth.getValidUser(authType, authorization);
+        if (userID != null) {
+
+
+            boolean result = commentService.deleteComment(consumerID, sequenceID, id, authType, userID);
+            return result ? new ApiStatus<>(id) : new ApiStatus<>();
+        } else {
+            log.warn("No login");
+            return new ApiStatus<>();
+        }
     }
 }

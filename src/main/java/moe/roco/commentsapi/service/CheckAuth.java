@@ -1,5 +1,11 @@
 package moe.roco.commentsapi.service;
 
+import java.util.Base64;
+import java.util.Date;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -19,22 +25,37 @@ public class CheckAuth {
     @Value("${SESSION_SECRET}")
     private String SESSION_SECRET;
 
-    private final NaverAuthService naverAuthService;
-
-    public boolean isLogin(String authType, String authorization) {
+    public String getValidUser(String authType, String authorization) {
+        Base64.Decoder decoder = Base64.getDecoder();
         if (authorization == null || authType == null) {
-            return false;
+            return null;
         }
         switch (authType) {
-            case "naver":
+            case "twitter":
                 try {
-                    var re = naverAuthService.getUserProfile(authorization).getMessage();
-                    return re.equals("success");
+                    Algorithm algorithm = Algorithm.HMAC256(SESSION_SECRET);
+                    JWTVerifier verifier = JWT.require(algorithm)
+                            .build();
+                    DecodedJWT jwt = verifier.verify(authorization);
+                    String json = new String(decoder.decode(jwt.getPayload()));
+                    JSONParser parser = new JSONParser();
+                    JSONObject object = (JSONObject) parser.parse(json);
+                    String id = (String) object.get("id");
+                    long expires = (long) object.get("expires");
+                    var date = new Date(expires);
+                    return id;
+                } catch (JWTVerificationException exception) {
+                    log.info("토큰 유효하지 않음.");
+                    log.warn(exception.getMessage());
+                    return null;
+                } catch (ParseException e) {
+                    log.warn("JSON 파싱 실패");
+                    return null;
                 } catch (Exception e) {
-                    return false;
+                    return null;
                 }
             default:
-                return false;
+                return null;
         }
     }
 

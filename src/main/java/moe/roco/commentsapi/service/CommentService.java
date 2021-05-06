@@ -13,6 +13,6 @@ public interface CommentService {
 
     public ApiStatusWithCount<List<Comment>> postComment(String consumerID, String sequenceID, CommentVo commentVo, long skip, int limit);
 
-    public boolean deleteComment(String id, String authType, String authorization);
+    public boolean deleteComment(String consumerID, String sequenceID, String commentID, String authType, String userID);
 }
 
