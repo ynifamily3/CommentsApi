@@ -43,6 +43,11 @@ public class CheckAuth {
                     String id = (String) object.get("id");
                     long expires = (long) object.get("expires");
                     var date = new Date(expires);
+                    var currentDate = new Date();
+                    if (date.getTime() - currentDate.getTime() < 0) {
+                        log.warn("세션 만료..");
+                        return null;
+                    }
                     return id;
                 } catch (JWTVerificationException exception) {
                     log.info("토큰 유효하지 않음.");
