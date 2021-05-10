@@ -16,4 +16,4 @@ CommentsFront API 서버입니다.
 
 ## Authentication
 - 소셜 로그인만으로 진행
-- 인증 서버가 분리되어 있음. (commentsAuth)[https://github.com/ynifamily3/commentsAuth]
+- 인증 서버가 분리되어 있음. [commentsAuth](https://github.com/ynifamily3/commentsAuth)
