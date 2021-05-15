@@ -32,6 +32,7 @@ public class CheckAuth {
         }
         switch (authType) {
             case "twitter":
+            case "kakao":
                 try {
                     Algorithm algorithm = Algorithm.HMAC256(SESSION_SECRET);
                     JWTVerifier verifier = JWT.require(algorithm)
@@ -70,6 +71,7 @@ public class CheckAuth {
         }
         switch (authType) {
             case "twitter":
+            case "kakao":
                 try {
                     Algorithm algorithm = Algorithm.HMAC256(SESSION_SECRET);
                     JWTVerifier verifier = JWT.require(algorithm)

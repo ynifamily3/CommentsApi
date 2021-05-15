@@ -76,8 +76,6 @@ public class CommentCtrl {
     ) {
         String userID = checkAuth.getValidUser(authType, authorization);
         if (userID != null) {
-
-
             boolean result = commentService.deleteComment(consumerID, sequenceID, id, authType, userID);
             return result ? new ApiStatus<>(id) : new ApiStatus<>();
         } else {
