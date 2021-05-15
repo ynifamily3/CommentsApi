@@ -15,5 +15,5 @@ CommentsFront API 서버입니다.
   - `Blue-Green`배포 같은 방식 사용 가능
 
 ## Authentication
-- 소셜 로그인만으로 진행, 단 인증 서버는 현재 `Java Spring` 통합으로 구성되어 있음. (API서버와 공존)
-- 인증 서버를 `Node`로 분리할 예정 (내부망으로만..)
+- 소셜 로그인만으로 진행
+- 인증 서버가 분리되어 있음. [commentsAuth](https://github.com/ynifamily3/commentsAuth)
