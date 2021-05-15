@@ -42,7 +42,6 @@ public class CommentDao {
 
     public void deleteComment(String consumerID, String sequenceID, String commentID, String authType, String userID) {
         Query query = new Query();
-        log.info(commentID + "삭제" + authType + "-" + userID);
         query.addCriteria(Criteria.where("id").is(new ObjectId(commentID)));
         query.addCriteria(Criteria.where("consumerID").is(consumerID));
         query.addCriteria(Criteria.where("sequenceID").is(sequenceID));

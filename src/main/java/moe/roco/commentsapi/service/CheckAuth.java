@@ -41,7 +41,7 @@ public class CheckAuth {
                     String json = new String(decoder.decode(jwt.getPayload()));
                     JSONParser parser = new JSONParser();
                     JSONObject object = (JSONObject) parser.parse(json);
-                    String id = (String) object.get("id");
+                    String id = String.valueOf(object.get("id"));
                     long expires = (long) object.get("expires");
                     var date = new Date(expires);
                     var currentDate = new Date();
@@ -58,9 +58,11 @@ public class CheckAuth {
                     log.warn("JSON 파싱 실패");
                     return null;
                 } catch (Exception e) {
+                    log.warn("기타: " + e.getMessage());
                     return null;
                 }
             default:
+                log.warn("디폴트");
                 return null;
         }
     }
