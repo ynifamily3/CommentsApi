@@ -2,9 +2,11 @@ package moe.roco.commentsapi.service;
 
 import java.util.List;
 
+import moe.roco.commentsapi.entity.ApiStatus.ApiStatus;
 import moe.roco.commentsapi.entity.ApiStatus.ApiStatusWithCount;
 import moe.roco.commentsapi.entity.Comment.Comment;
 import moe.roco.commentsapi.vo.CommentVo;
+import moe.roco.commentsapi.vo.CommentVoV2;
 
 public interface CommentService {
 
@@ -12,6 +14,8 @@ public interface CommentService {
     public ApiStatusWithCount<List<Comment>> getCommentList(String consumerID, String sequenceID, long skip, int limit);
 
     public ApiStatusWithCount<List<Comment>> postComment(String consumerID, String sequenceID, CommentVo commentVo, long skip, int limit);
+
+    public ApiStatus<Boolean> postComment(String consumerID, String sequenceID, String authorization, CommentVoV2 commentVoV2);
 
     public boolean deleteComment(String consumerID, String sequenceID, String commentID, String authType, String userID);
 }

@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import moe.roco.commentsapi.vo.CommentVo;
 
 @Getter
 @Setter
@@ -23,12 +22,4 @@ public class Comment {
     long recommend;
     long notRecommend;
     long cntReply; // 답글 수
-
-    public CommentVo toVo() {
-        return CommentVo.builder()
-                .date(date)
-                .writer(writer)
-                .content(content)
-                .build();
-    }
 }

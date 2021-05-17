@@ -17,6 +17,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import moe.roco.commentsapi.entity.JWTPayload;
 
 @Slf4j
 @Service
@@ -88,6 +89,44 @@ public class CheckAuth {
                 }
             default:
                 return false;
+        }
+    }
+
+    // v2
+    public JWTPayload getLoginedUserInfo(String authorization) {
+        var decoded = decodeJWT(authorization);
+        if (decoded == null) return null;
+        var date = new Date(decoded.getExpires());
+        var currentDate = new Date();
+        if (date.getTime() - currentDate.getTime() < 0) {
+            log.warn("세션 만료됨.");
+            return null;
+        }
+        return decoded;
+    }
+
+    private JWTPayload decodeJWT(String authorization) {
+        Base64.Decoder decoder = Base64.getDecoder();
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(SESSION_SECRET);
+            JWTVerifier verifier = JWT.require(algorithm).build();
+            DecodedJWT jwt = verifier.verify(authorization);
+            String json = new String(decoder.decode(jwt.getPayload()));
+            JSONParser parser = new JSONParser();
+            JSONObject object = (JSONObject) parser.parse(json);
+            return JWTPayload.builder()
+                    .id(String.valueOf(object.get("id")))
+                    .displayName(String.valueOf(object.get("displayName")))
+                    .photo(String.valueOf(object.get("photo")))
+                    .expires((long) object.get("expires"))
+                    .build();
+        } catch (JWTVerificationException exception) {
+            log.info("토큰 유효하지 않음.");
+            log.warn(exception.getMessage());
+            return null;
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+            return null;
         }
     }
 }

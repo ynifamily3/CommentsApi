@@ -23,6 +23,7 @@ import moe.roco.commentsapi.enums.STATUS;
 import moe.roco.commentsapi.service.CheckAuth;
 import moe.roco.commentsapi.service.CommentService;
 import moe.roco.commentsapi.vo.CommentVo;
+import moe.roco.commentsapi.vo.CommentVoV2;
 
 @Slf4j
 @Controller
@@ -63,6 +64,17 @@ public class CommentCtrl {
             result.setStatus(STATUS.FAILURE);
             return result;
         }
+    }
+
+    @ResponseBody
+    @ApiOperation(value = "댓글 등록하기v2 (인증 필요)")
+    @PostMapping(value = "/{consumerID}/{sequenceID}/v2")
+    public ApiStatus<Boolean> postComments(@PathVariable(value = "consumerID") String consumerID,
+                                           @PathVariable(value = "sequenceID") String sequenceID,
+                                           @RequestBody CommentVoV2 commentVoV2,
+                                           @RequestHeader(value = "Authorization", required = true) String authorization
+    ) {
+        return commentService.postComment(consumerID, sequenceID, authorization, commentVoV2);
     }
 
     @ResponseBody

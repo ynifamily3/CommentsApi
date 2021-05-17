@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import moe.roco.commentsapi.entity.Comment.Comment;
-import moe.roco.commentsapi.vo.CommentVo;
 
 @Slf4j
 @Repository
@@ -35,9 +34,8 @@ public class CommentDao {
         return mongoOperations.find(query.skip(skip).limit(limit), Comment.class);
     }
 
-    public void addComment(String consumerID, String sequenceID, CommentVo commentVo) {
-        Comment commentEntity = commentVo.toEntity(consumerID, sequenceID);
-        mongoOperations.insert(commentEntity);
+    public void addComment(String consumerID, String sequenceID, Comment comment) {
+        mongoOperations.insert(comment);
     }
 
     public void deleteComment(String consumerID, String sequenceID, String commentID, String authType, String userID) {

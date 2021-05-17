@@ -9,6 +9,7 @@ import moe.roco.commentsapi.enums.STATUS;
 public class ApiStatus<T> {
     private STATUS status;
     private T result;
+    private String message;
 
     public ApiStatus() {
         this.status = STATUS.FAILURE;
