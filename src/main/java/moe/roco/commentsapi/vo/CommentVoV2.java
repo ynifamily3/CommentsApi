@@ -23,7 +23,7 @@ public class CommentVoV2 {
     }
 
     public Comment toEntity(String consumerID, String sequenceID, Writer writer) {
-        writer.setNickname(authMethod + "-" + writer.getNickname()); // authMethod 접합
+        writer.setId(authMethod + "-" + writer.getId());
         return Comment.builder()
                 .recommend(0)
                 .notRecommend(0)

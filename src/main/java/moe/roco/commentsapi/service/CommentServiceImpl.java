@@ -56,6 +56,9 @@ public class CommentServiceImpl implements CommentService {
                     .id(user.getId()).nickname(user.getDisplayName()).profilePhoto(user.getPhoto()).build());
             try {
                 commentDao.addComment(consumerID, sequenceID, commentEntity);
+                apiStatus.setMessage("등록 성공");
+                apiStatus.setStatus(STATUS.SUCCESS);
+                apiStatus.setResult(true);
             } catch (Exception e) {
                 apiStatus.setMessage(e.getMessage());
                 apiStatus.setStatus(STATUS.FAILURE);
