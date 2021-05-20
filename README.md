@@ -1,5 +1,5 @@
 # CommentsApi
-CommentsFront API 서버입니다.
+Comments 서비스의 API 서버입니다. CommentsFront에게 필요한 API르 제공해 줍니다.
 
 ## DB
 - `EC2`에 통합된 `mongoDB`를 사용하다 `MongoDB Atlas`를 사용하고 있습니다.
@@ -16,4 +16,5 @@ CommentsFront API 서버입니다.
 
 ## Authentication
 - 소셜 로그인만으로 진행
+- jwt를 검증하여 올바른 계정 정보인지 확인하고 서버 측 액션을 수행합니다.
 - 인증 서버가 분리되어 있음. [commentsAuth](https://github.com/ynifamily3/commentsAuth)
